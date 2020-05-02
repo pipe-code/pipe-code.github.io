@@ -1,4 +1,4 @@
-[PIPELONCH0:WEB]
+[PIPE:CODE]
 =====
 
-> React standalone test. [VIEW PAGE](https://pipeloncho.github.io/)
+> React standalone test. [VIEW PAGE](https://pipe-code.github.io/)
