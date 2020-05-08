@@ -1,0 +1,34 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+
+body {
+	background-color: #222;
+	font-family: 'Share Tech Mono', monospace;
+	font-size: 18px;
+	line-height: 1.2;
+	color: #fff;
+	margin: 0px;
+	.container {
+		> div {
+			visibility: visible;
+			opacity: 1;
+			transition: opacity .5s;
+			transition-delay: 1s
+		}
+		&.loading {
+			> div:not(.loader) {
+				visibility: hidden;
+				opacity: 0;
+			}
+		}
+	}
+}
+
+body, p {
+	font-family: "Lucida Console", Monaco, monospace;
+	color: #fff;
+	// text-shadow: 2px 2px #141414;
+}
+
+@import "partials/loader";
+@import "partials/logo";
+@import "partials/fullScreenVimeo";

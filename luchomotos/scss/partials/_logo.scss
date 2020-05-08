@@ -1,0 +1,17 @@
+.logo {
+    position: absolute;
+    top: 40px;
+    left: 60px;
+    z-index: 10;
+    img {
+        width: 140px;
+        height: 140px;
+    }
+    @media (max-width: 767px) {
+        left: 30px;
+        img {
+            width: 80px;
+            height: 80px;
+        }
+    }
+}
