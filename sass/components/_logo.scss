@@ -1,0 +1,60 @@
+.logo {
+    position: fixed;
+    top: 40px;
+    left: 60px;
+    z-index: 9;
+    h1 {
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 24px;
+        display: inline-block;
+        overflow: hidden; /* Ensures the content is not revealed until the animation */
+        white-space: nowrap; /* Keeps the content on a single line */
+        margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+        letter-spacing: 6px; /* Adjust as needed */
+        position: relative;
+        &:after {
+            content: " ";
+            display: inline-block;
+            border-right: 4px solid rgba(255,255,255,.75);
+            animation: blinkTextCursor 800ms steps(11) infinite normal;
+            position: absolute;
+            right: 0px;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 28px;
+            width: 1px;
+        }
+    }
+    @media (max-width: 991px) {
+        text-align: center;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    @media (max-width: 767px) {
+        h1 {
+            font-size: 20px;
+        }
+    }
+}
+
+.container.imgloaded {
+    .logo {
+        h1 {
+            animation: 
+                typing 1.5s steps(16) 1s 1 normal both;
+            animation-delay: 2s;
+        }
+    }
+}
+
+/* The typing effect */
+@keyframes typing {
+    from { width: 4px }
+    to { width: 100% }
+}
+  
+/* The typewriter cursor effect */
+@keyframes blinkTextCursor{
+    from{border-right-color: rgba(255,255,255,.75);}
+    to{border-right-color: transparent;}
+  }
