@@ -1,4 +1,4 @@
 [PIPE:CODE]
 =====
 
-> React standalone test. [VIEW PAGE](https://pipe-code.github.io/)
+> React on webpack (Just for fun). [VIEW PAGE](https://pipe-code.github.io/)
