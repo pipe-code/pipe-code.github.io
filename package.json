@@ -29,10 +29,10 @@
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0",
-    "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack": "^4.43.0"
   },
   "devDependencies": {
-    "@iconify/icons-typcn": "^1.0.5"
+    "@iconify/icons-typcn": "^1.0.5",
+    "webpack-cli": "^3.3.12"
   }
 }

@@ -37,11 +37,10 @@
     }
 }
 
-.container.imgloaded {
+.loaded {
     .logo {
         h1 {
-            animation: 
-                typing 1.5s steps(16) 1s 1 normal both;
+            animation: typing 1.5s steps(16) 1s 1 normal both;
             animation-delay: 2s;
         }
     }

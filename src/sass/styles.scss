@@ -2,18 +2,26 @@
 
 body {
 	background-color: #222;
-	.container {
-		> div {
+	.loading {
+		> div:not(.loader) {
+			visibility: hidden;
+			opacity: 0;
+			transition: .5s;
+			transition-delay: 1s;
+		}
+	}
+	.loaded {
+		> div:not(.loader) {
 			visibility: visible;
 			opacity: 1;
-			transition: opacity .5s;
-			transition-delay: 1s
+			transition: .5s;
+			transition-delay: 1s;
 		}
-		&.loading {
-			> div:not(.loader) {
-				visibility: hidden;
-				opacity: 0;
-			}
+		> .loader {
+			visibility: hidden;
+			opacity: 0;
+			transition: .5s;
+			transition-delay: 1s;
 		}
 	}
 }

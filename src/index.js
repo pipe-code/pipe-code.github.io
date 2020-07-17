@@ -20,7 +20,7 @@ const Root = () => {
   }, []);
 
   return (
-    <div className={loading ? 'loading' : 'imgloaded'}>
+    <div className={loading ? 'loading' : 'loaded'}>
         <Loader />
         <Layout>
           <Home />

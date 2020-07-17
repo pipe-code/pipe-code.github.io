@@ -4,11 +4,11 @@ import Logo from '../../components/Logo/Logo'
 
 const Layout = (props) => (
     <Aux>
-        <header>
+        <div className="header-wrapper">
             <Logo />
-        </header>
+        </div>
         {props.children}
-        <footer></footer>
+        <div className="footer-wrapper"></div>
     </Aux>
 )
 
