@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import instagramWithCircle from '@iconify/icons-entypo-social/instagram-with-circle';
 import spotifyIcon from '@iconify/icons-cib/spotify';
 import SocialIcon from './SocialIcon';
@@ -10,15 +10,33 @@ const SocialIcons = (props) => {
         spotify: false
     });
 
-    const checkData = (social) => {
+    useEffect(() => {
+        checkData("instagram", data => {
+            if(data.status == "success") {
+                setSocialStatus(prevState => {
+                    return {...prevState, instagram: true};
+                });
+            }
+        });
+        checkData("spotify", data => {
+            if(data.status == "success") {
+                setSocialStatus(prevState => {
+                    return {...prevState, spotify: true};
+                });
+            }
+        });
+    }, [])
+
+    const checkData = (social, handleData) => {
         fetch(`https://pipelons-api-rest.herokuapp.com/${social}/`)
         .then(res => res.json())
-        .then(data => {
-            if(data) return data;
-            else return null;
+        .then(response => {
+            handleData(response);
         })
         .catch(err => {
-            console.log(err);
+            handleData({
+                status: "error"
+            });
         });
     }
 
