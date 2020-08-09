@@ -1,0 +1,7 @@
+.Posts {
+    padding: 100px 60px 40px 60px;
+    box-sizing: border-box;
+    @media (max-width: 767px) {
+        padding: 100px 30px 40px 30px;
+    }
+}

@@ -7,6 +7,7 @@ import styles from './Glitch.module.scss';
 const Glitch = (props) => {
 
     useEffect(() => {
+        props.handleLoading( true );
         imagesLoaded('.full-screen-glitch', { background: true }, () => {
             props.handleLoading( false );
         });
