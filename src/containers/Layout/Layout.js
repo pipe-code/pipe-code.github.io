@@ -2,9 +2,11 @@ import React from 'react';
 import Aux from '../../hoc/Aux';
 import Logo from '../../components/Logo/Logo'
 
+import styles from './Layout.module.scss';
+
 const Layout = (props) => (
     <Aux>
-        <div className="header-wrapper">
+        <div className={styles.Header}>
             <Logo />
         </div>
         {props.children}

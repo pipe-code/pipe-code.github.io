@@ -5,93 +5,38 @@ $delayAnim: 2s;
 $gapHorizontal: 10px;
 $gapVertical: 5px;
 
-.glitch {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    .glitch-img {
-        position: absolute;
-        top: calc( -1 * #{$gapVertical} );
-        left: calc( -1 * #{$gapHorizontal} );
-        width: calc(100% + #{$gapHorizontal} * 2);
-        height: calc(100% + #{$gapVertical} * 2);
-		// background: url(../images/img5.jpeg) no-repeat 50% 0;
-		background-repeat: no-repeat;
-		background-position: center;
-        background-color: transparent;
-        background-size: cover;
-        transform: translate3d(0,0,0);
-        background-blend-mode: none;
-        &:nth-child(n+2) {
-            opacity: 0;
-        }
-    }
-}
-
-.full-screen-glitch {
-	.content {
-		.content-title {
-			font-size: 60px;
-			line-height: 1;
-			position: relative;
-			animation-delay: calc(#{$delayAnim} + #{$timeAnim} * 0.2);
-			position: absolute;
-			bottom: 40px;
-			left: 80px;
-			margin: 0;
-			opacity: .6;
-		}
-		.content-text {
-			position: absolute;
-			font-size: 18px;
-			line-height: 1.2;
-			top: 120px;
-			right: 80px;
-			width: 100%;
-			max-width: 470px;
-			text-align: right;
-			font-weight: 400;
-			animation-delay: calc(#{$delayAnim} + #{$timeAnim} * 0.25);
-			opacity: .6;
-		}
-	}
-}
-
-.loaded {
-    .glitch {
-        .glitch-img {
-            &:nth-child(n+2) {
-                animation-duration: $timeAnim;
-                animation-delay: $delayAnim;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-            }
-            &:nth-child(2) {
-                animation-name: glitch-anim-1;
-            }
-            &:nth-child(3) {
-                animation-name: glitch-anim-2;
-            }
-            &:nth-child(4) {
-                animation-name: glitch-anim-3;
-            }
-            &:nth-child(5) {
-				// background-color: #af4949;
-				background-color: #116466;
-                background-blend-mode: overlay;
-                animation-name: glitch-anim-flash;
-            }
-        }
-    }
-    .content-title, 
-	.content-text {
-        animation-name: glitch-anim-text;
+.Glitch_img {
+    position: absolute;
+    top: calc( -1 * #{$gapVertical} );
+    left: calc( -1 * #{$gapHorizontal} );
+    width: calc(100% + #{$gapHorizontal} * 2);
+    height: calc(100% + #{$gapVertical} * 2);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: transparent;
+    background-size: cover;
+    transform: translate3d(0,0,0);
+    background-blend-mode: none;
+    &:nth-child(n+2) {
+        opacity: 0;
         animation-duration: $timeAnim;
+        animation-delay: $delayAnim;
         animation-timing-function: linear;
         animation-iteration-count: infinite;
+    }
+    &:nth-child(2) {
+        animation-name: glitch-anim-1;
+    }
+    &:nth-child(3) {
+        animation-name: glitch-anim-2;
+    }
+    &:nth-child(4) {
+        animation-name: glitch-anim-3;
+    }
+    &:nth-child(5) {
+        background-color: #116466;
+        background-blend-mode: overlay;
+        animation-name: glitch-anim-flash;
     }
 }
 

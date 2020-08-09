@@ -1,12 +1,14 @@
 import React from 'react';
 
+import styles from './GlitchImage.module.scss';
+
 const GlitchImage = (props) => {
 
-    const style = {
+    const bg_image = {
         backgroundImage: `url(${props.image})`
     }
 
-    return <div className="glitch-img" style={style}></div>
+    return <div className={styles.Glitch_img} style={bg_image}></div>
 }
 
 export default GlitchImage;

@@ -1,13 +1,11 @@
 import React from 'react';
 import Aux from '../../hoc/Aux';
-import SocialIcons from '../../components/SocialIcons/SocialIcons';
 import imageLogo from '../../assets/pipe-bg.svg';
 import Glitch from '../../components/Glitch/Glitch';
 
-const Home = () => (
+const Home = (props) => (
     <Aux>
-        <Glitch image={imageLogo} />
-        <SocialIcons />
+        <Glitch image={imageLogo} handleLoading={props.handleLoading} />
     </Aux>
 )
 

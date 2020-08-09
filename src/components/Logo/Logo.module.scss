@@ -1,8 +1,5 @@
-.logo {
-    position: fixed;
-    top: 40px;
-    left: 60px;
-    z-index: 9;
+.Logo {
+    display: inline-block;
     h1 {
         font-family: 'Share Tech Mono', monospace;
         font-size: 24px;
@@ -12,6 +9,8 @@
         margin: 0 auto; /* Gives that scrolling effect as the typing happens */
         letter-spacing: 6px; /* Adjust as needed */
         position: relative;
+        animation: typing 1.5s steps(16) 1s 1 normal both;
+        animation-delay: 1s;
         &:after {
             content: " ";
             display: inline-block;
@@ -25,23 +24,9 @@
             width: 1px;
         }
     }
-    @media (max-width: 991px) {
-        text-align: center;
-        left: 50%;
-        transform: translateX(-50%);
-    }
     @media (max-width: 767px) {
         h1 {
             font-size: 20px;
-        }
-    }
-}
-
-.loaded {
-    .logo {
-        h1 {
-            animation: typing 1.5s steps(16) 1s 1 normal both;
-            animation-delay: 2s;
         }
     }
 }
