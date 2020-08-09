@@ -17,7 +17,8 @@ $gapHorizontal: 10px;
             animation-name: glitch-anim-text;
             animation-duration: $timeAnim;
             animation-timing-function: linear;
-            animation-iteration-count: infinite;
+			animation-iteration-count: infinite;
+			color: #3d92cb;
         }
     }
 }
