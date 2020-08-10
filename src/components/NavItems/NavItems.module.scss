@@ -1,12 +1,36 @@
 $timeAnim: 4s;
 $gapHorizontal: 10px;
 
+$hamburger-layer-width: 30px;
+$hamburger-layer-height: 2px;
+$hamburger-layer-spacing: 4px;
+
 .NavItems {
     display: inline-block;
     ul {
         list-style: none;
         margin: 0;
-        padding: 0;
+		padding: 0;
+		@media (max-width: 991px) {
+			position: fixed;
+			transform: translateX(-100%);
+			top: 0;
+			left: 0;
+			width: 80%;
+			max-width: 340px;
+			height: 100%;
+			background-color: #000;
+			box-sizing: border-box;
+			padding: 100px 20px 0 60px;
+			transition: transform .5s;
+			&.isOpen {
+				transform: translateX(0);
+			}
+		}
+		@media (max-width: 767px) {
+			max-width: 260px;
+			padding: 100px 20px 0 30px;
+		}
     }
     li {
         display: inline-block;
@@ -17,52 +41,140 @@ $gapHorizontal: 10px;
             animation-name: glitch-anim-text;
             animation-duration: $timeAnim;
             animation-timing-function: linear;
-			animation-iteration-count: infinite;
-			color: #3d92cb;
+            animation-iteration-count: infinite;
+            color: #3d92cb;
+        }
+    }
+    .Hamburger {
+		overflow: hidden;
+		margin: 0;
+		padding: 10px;
+		cursor: pointer;
+		transition-timing-function: linear;
+		transition-duration: .15s;
+		transition-property: opacity,filter;
+		text-transform: none;
+		color: inherit;
+		border: 0;
+		background-color: transparent;
+		@media (min-width: 992px) {
+			display: none;
+		}
+		.box {
+			width: $hamburger-layer-width;
+			height: $hamburger-layer-height * 3 + $hamburger-layer-spacing * 2;
+			display: inline-block;
+			position: relative;
+		}
+        .inner {
+			transition: background-color 0.125s 0.175s ease-in;
+			display: block;
+			display: block;
+			top: 50%;
+			margin-top: $hamburger-layer-height / -2;
+			position: absolute;
+			width: $hamburger-layer-width;
+			height: $hamburger-layer-height;
+			background-color: #fff;
+			&:after, &:before {
+				display: block;
+				content: "";
+				position: absolute;
+				width: $hamburger-layer-width;
+				height: $hamburger-layer-height;
+				background-color: #fff;
+			}
+            &:before {
+				top: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+                left: 0;
+                transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335),
+                    top 0.05s 0.125s linear,
+                    left 0.125s 0.175s ease-in;
+            }
+            &:after {
+                bottom: ($hamburger-layer-spacing + $hamburger-layer-height) * -1;
+                right: 0;
+                transition: transform 0.125s cubic-bezier(0.6, 0.04, 0.98, 0.335),
+                    top 0.05s 0.125s linear,
+                    right 0.125s 0.175s ease-in;
+            }
+        }
+        &.isActive {
+            .inner {
+                transition-delay: 0s;
+                transition-timing-function: ease-out;
+                background-color: transparent !important;
+                &:before {
+                    left: $hamburger-layer-width * -2;
+                    top: $hamburger-layer-width * -2;
+                    transform: translate3d($hamburger-layer-width * 2, $hamburger-layer-width * 2, 0) rotate(45deg);
+                    transition: left 0.125s ease-out,
+                        top 0.05s 0.125s linear,
+                        transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
+                }
+                &:after {
+                    right: $hamburger-layer-width * -2;
+                    top: $hamburger-layer-width * -2;
+                    transform: translate3d($hamburger-layer-width * -2, $hamburger-layer-width * 2, 0) rotate(-45deg);
+                    transition: right 0.125s ease-out,
+                        top 0.05s 0.125s linear,
+                        transform 0.125s 0.175s cubic-bezier(0.075, 0.82, 0.165, 1);
+                }
+            }
         }
     }
 }
 
 @keyframes glitch-anim-text {
-	0% { 
-		transform: translate3d(calc(-1 * #{$gapHorizontal}),0,0) scale3d(-1,-1,1);
-		-webkit-clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
-		clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
-	}
-	2% {
-		-webkit-clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
-		clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
-	}
-	4% {
-		-webkit-clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
-		clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
-	}
-	5% {
-		-webkit-clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
-		clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
-	}
-	6% {
-		-webkit-clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
-		clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
-	}
-	7% {
-		-webkit-clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
-		clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
-	}
-	8% {
-		-webkit-clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
-		clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
-	}
-	9% {
-		-webkit-clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
-		clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
-	}
-	9.9% {
-		transform: translate3d(calc(-1 * #{$gapHorizontal}),0,0) scale3d(-1,-1,1);
-	}
-	10%, 100% {
-		transform: translate3d(0,0,0) scale3d(1,1,1);
-		-webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-		clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-	}
+    0% {
+        transform: translate3d(calc(-1 * #{$gapHorizontal}), 0, 0) scale3d(-1, -1, 1);
+        -webkit-clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
+        clip-path: polygon(0 20%, 100% 20%, 100% 21%, 0 21%);
+    }
+
+    2% {
+        -webkit-clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
+        clip-path: polygon(0 33%, 100% 33%, 100% 33%, 0 33%);
+    }
+
+    4% {
+        -webkit-clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
+        clip-path: polygon(0 44%, 100% 44%, 100% 44%, 0 44%);
+    }
+
+    5% {
+        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
+        clip-path: polygon(0 50%, 100% 50%, 100% 20%, 0 20%);
+    }
+
+    6% {
+        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
+        clip-path: polygon(0 70%, 100% 70%, 100% 70%, 0 70%);
+    }
+
+    7% {
+        -webkit-clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
+        clip-path: polygon(0 80%, 100% 80%, 100% 80%, 0 80%);
+    }
+
+    8% {
+        -webkit-clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
+        clip-path: polygon(0 50%, 100% 50%, 100% 55%, 0 55%);
+    }
+
+    9% {
+        -webkit-clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+        clip-path: polygon(0 70%, 100% 70%, 100% 80%, 0 80%);
+    }
+
+    9.9% {
+        transform: translate3d(calc(-1 * #{$gapHorizontal}), 0, 0) scale3d(-1, -1, 1);
+    }
+
+    10%,
+    100% {
+        transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+        -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
 }
