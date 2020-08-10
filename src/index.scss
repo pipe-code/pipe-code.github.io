@@ -10,4 +10,7 @@ body, p {
 	color: #fff;
 	font-size: 18px;
 	line-height: 1.2;
+	@media (max-width: 767px) {
+		font-size: 15px;
+	}
 }

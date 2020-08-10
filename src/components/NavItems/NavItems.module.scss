@@ -37,6 +37,7 @@ $hamburger-layer-spacing: 4px;
     }
     a {
         color: #fff;
+        font-size: 18px;
         &.Active {
             animation-name: glitch-anim-text;
             animation-duration: $timeAnim;
