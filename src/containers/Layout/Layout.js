@@ -2,6 +2,7 @@ import React from 'react';
 import Aux from '../../hoc/Aux';
 import Logo from '../../components/Logo/Logo'
 import NavItems from '../../components/NavItems/NavItems';
+import Copyright from '../../components/Copyright/Copyright';
 
 import styles from './Layout.module.scss';
 
@@ -12,7 +13,9 @@ const Layout = (props) => (
             <NavItems />
         </div>
         {props.children}
-        <div className="footer-wrapper"></div>
+        <div className={styles.Footer}>
+            <Copyright />
+        </div>
     </Aux>
 )
 
