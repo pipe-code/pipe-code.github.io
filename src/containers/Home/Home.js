@@ -1,12 +1,16 @@
-import React from 'react';
-import Aux from '../../hoc/Aux';
+import React, { useEffect } from 'react';
 import imageLogo from '../../assets/pipe-bg.svg';
 import Glitch from '../../components/Glitch/Glitch';
 
-const Home = (props) => (
-    <Aux>
+const Home = (props) => {
+
+    useEffect(() => {
+        document.title = props.title;
+    }, [])
+
+    return (
         <Glitch image={imageLogo} handleLoading={props.handleLoading} />
-    </Aux>
-)
+    )
+}
 
 export default Home;

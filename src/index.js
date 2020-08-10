@@ -22,11 +22,11 @@ const Root = () => {
         <Layout>
 
           <Route path="/" exact>
-            <Home handleLoading={setLoading} />
+            <Home handleLoading={setLoading} title="PIPE:CODE" />
           </Route>
 
           <Route path="/posts" exact>
-            <Posts handleLoading={setLoading} />
+            <Posts handleLoading={setLoading} title="PIPE:CODE | POSTS" />
           </Route>
 
         </Layout>

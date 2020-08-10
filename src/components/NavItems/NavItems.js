@@ -13,6 +13,7 @@ const NavItems = () => {
 
     return (
         <div className={styles.NavItems}>
+            <div className={hamburger ? [styles.Backdrop, styles.isVisible].join(' ') : styles.Backdrop} onClick={toggleHamburgerHandler}></div>
             <ul className={hamburger ? styles.isOpen : null}>
                 <li><NavLink to="/posts" activeClassName={styles.Active} exact onClick={toggleHamburgerHandler}>Posts</NavLink></li>
             </ul>

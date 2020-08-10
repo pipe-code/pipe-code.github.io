@@ -8,6 +8,7 @@ const Posts = (props) => {
     const [posts, setPosts] = useState(null);
     
     useEffect(() => {
+        document.title = props.title;
         props.handleLoading( true );
         fetchApiData('posts', response => {
             if(response.status == "success" && response.data.length > 0) setPosts( response.data );
