@@ -1,5 +1,6 @@
 $timeAnim: 4s;
 $gapHorizontal: 10px;
+$gapVertical: 5px;
 
 $hamburger-layer-width: 30px;
 $hamburger-layer-height: 2px;
@@ -35,15 +36,34 @@ $hamburger-layer-spacing: 4px;
     }
     li {
         display: inline-block;
+        vertical-align: middle;
+        margin-right: 20px;
+        &:last-of-type {
+            margin-right: 0px;
+        }
+        @media (max-width: 991px) {
+            display: table;
+            margin-right: 0px;
+            margin-bottom: 20px;
+        }
     }
     a {
         color: #fff;
         font-size: 18px;
+        display: flex;
+        transition: color .5s;
+        svg {
+            width: 22px;
+            height: 22px;
+        }
         &.Active {
             animation-name: glitch-anim-text;
             animation-duration: $timeAnim;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
+            color: #3d92cb;
+        }
+        &:hover {
             color: #3d92cb;
         }
     }

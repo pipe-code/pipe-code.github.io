@@ -24,14 +24,24 @@ const Layout = (props) => {
 
     return (
         <Aux>
-            <div className={scrolling ? [styles.Header, styles.isScrolling].join(' ') : styles.Header}>
-                <Logo />
-                <NavItems />
-            </div>
-            {props.children}
-            <div className={styles.Footer}>
-                <Copyright />
-            </div>
+            <header className={scrolling ? [styles.Header, styles.isScrolling].join(' ') : styles.Header}>
+                <div className={styles.Container}>
+                    <nav>
+                        <Logo />
+                        <NavItems />
+                    </nav>
+                </div>
+            </header>
+            <main>
+                <div className={styles.Container}>
+                    {props.children}
+                </div>
+            </main>
+            <footer className={styles.Footer}>
+                <div className={styles.Container}>
+                    <Copyright />
+                </div>
+            </footer>
         </Aux>
     )
 }
