@@ -1,0 +1,55 @@
+.IconBubble {
+    display: inline-block;
+    position: relative;
+    width: 24px;
+    height: 24px;
+    .Bubble {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 100%);
+        backface-visibility: hidden;
+        font-size: 15px;
+        color: #222222;
+        visibility: hidden;
+        opacity: 0;
+        background-color: #fff;
+        padding: 5px;
+        border-radius: 3px;
+        white-space: nowrap;
+        transition: .5s;
+        &:after {
+            content: '';
+            display: block;
+            width: 6px;
+            height: 6px;
+            transform: rotate(45deg);
+            position: absolute;
+            top: -3px;
+            left: calc(50% - 3px);
+            background-color: #fff;
+        }
+    }
+    @media (min-width: 992px) {
+        &:hover .Bubble {
+            transform: translate(-50%, 130%);
+            visibility: visible;
+            opacity: 1;
+        }   
+    }
+    @media (max-width: 991px) {
+        width: 150px;
+        height: 28px;
+        .Bubble {
+            bottom: 50%;
+            left: 20px;
+            transform: translate(0, 50%);
+            visibility: hidden;
+            opacity: 0;
+            &:after {
+                left: -3px;
+                top: calc(50% - 3px);
+            }
+        }
+    }
+}
