@@ -53,8 +53,8 @@ $hamburger-layer-spacing: 4px;
         display: flex;
         transition: color .5s;
         svg {
-            width: 22px;
-            height: 22px;
+            width: 24px;
+            height: 24px;
         }
         &.Active {
             animation-name: glitch-anim-text;
