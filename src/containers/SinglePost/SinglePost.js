@@ -27,7 +27,7 @@ const SinglePost = (props) => {
                     <div>
                         <h1>{post.Title}</h1>
                     </div>
-                    <div dangerouslySetInnerHTML={{__html: post.Body}} />
+                    <div className={styles.Body} dangerouslySetInnerHTML={{__html: post.Body}} />
                 </Aux>
                 : <div>No se encontro post</div>
             }
