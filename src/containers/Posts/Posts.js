@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import fetchApiData from '../../fetchApiData';
 
 import styles from './Posts.module.scss';
@@ -22,7 +23,9 @@ const Posts = (props) => {
                 posts ?
                     posts.map(item => {
                         return (
-                            <a key={item._id}>{item.Title}</a>
+                            <Link to={'/posts/' + item._id} key={item._id}>
+                                {item.Title}
+                            </Link>
                         )
                     })
                 : <p>Aun no hay posts disponibles... que pena pues mk, pero pase despues.</p>

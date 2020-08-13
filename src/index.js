@@ -8,6 +8,7 @@ import Aux from './hoc/Aux';
 
 import Home from './containers/Home/Home';
 import Posts from './containers/Posts/Posts';
+import SinglePost from './containers/SinglePost/SinglePost';
 
 import './index.scss';
 
@@ -28,6 +29,10 @@ const Root = () => {
           <Route path="/posts" exact>
             <Posts handleLoading={setLoading} title="PIPE:CODE | POSTS" />
           </Route>
+
+          <Route path="/posts/:id" exact render={
+            (props) => <SinglePost handleLoading={setLoading} {...props} />
+          } />
 
         </Layout>
       </HashRouter>

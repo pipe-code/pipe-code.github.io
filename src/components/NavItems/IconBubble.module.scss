@@ -3,6 +3,14 @@
     position: relative;
     width: 24px;
     height: 24px;
+    svg {
+        width: 24px;
+        height: 24px;
+        @media (max-width: 991px) {
+            width: 28px;
+            height: 28px;
+        }
+    }
     .Bubble {
         position: absolute;
         bottom: 0;

@@ -52,10 +52,6 @@ $hamburger-layer-spacing: 4px;
         font-size: 18px;
         display: flex;
         transition: color .5s;
-        svg {
-            width: 24px;
-            height: 24px;
-        }
         &.Active {
             animation-name: glitch-anim-text;
             animation-duration: $timeAnim;
