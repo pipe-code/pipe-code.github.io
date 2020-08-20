@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 
 import Loader from './components/Loader/Loader';
 import Layout from './containers/Layout/Layout';
@@ -22,18 +22,22 @@ const Root = () => {
       <HashRouter>
         <Layout>
 
-          <Route path="/" exact>
-            <Home handleLoading={setLoading} title="PIPE:CODE" />
-          </Route>
+          <Switch>
 
-          <Route path="/posts" exact>
-            <Posts handleLoading={setLoading} title="PIPE:CODE | POSTS" />
-          </Route>
+            <Route path="/" exact>
+              <Home handleLoading={setLoading} title="PIPE:CODE" />
+            </Route>
 
-          <Route path="/posts/:id" exact render={
-            (props) => <SinglePost handleLoading={setLoading} {...props} />
-          } />
+            <Route path="/posts" exact>
+              <Posts handleLoading={setLoading} title="PIPE:CODE | POSTS" />
+            </Route>
 
+            <Route path="/posts/:id" exact render={
+              (props) => <SinglePost handleLoading={setLoading} {...props} />
+            } />
+
+          </Switch>
+        
         </Layout>
       </HashRouter>
     </Aux>
