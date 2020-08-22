@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Loader from './components/Loader/Loader';
 import Layout from './containers/Layout/Layout';
@@ -35,6 +35,8 @@ const Root = () => {
             <Route path="/posts/:id" exact render={
               (props) => <SinglePost handleLoading={setLoading} {...props} />
             } />
+
+            <Redirect to="/" />
 
           </Switch>
         

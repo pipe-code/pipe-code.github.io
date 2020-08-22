@@ -17,14 +17,19 @@ const Posts = (props) => {
         });
     }, []);
 
+    const getFormattedDate = (date) => {
+        let formattedDate = new Date(Date.parse(date));
+        return formattedDate.getDate() + '/' + (formattedDate.getMonth() + 1) + '/' + formattedDate.getFullYear();
+    }
+
     return (
         <div className={styles.Posts}>
             {
                 posts ?
                     posts.map(item => {
                         return (
-                            <Link to={'/posts/' + item._id} key={item._id}>
-                                {item.Title}
+                            <Link to={'/posts/' + item._id} key={item._id} className={styles.Link}>
+                                <span>[{getFormattedDate(item.createdAt)}]</span> {item.Title}
                             </Link>
                         )
                     })
