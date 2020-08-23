@@ -1,0 +1,43 @@
+.Comments {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 1px solid #3d92cb;;
+    border-radius: 10px;
+    margin-top: 40px;
+    h2 {
+        margin: 0;
+        color: #3d92cb;
+    }
+    form {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        input {
+            outline: none;
+            height: 30px;
+            padding: 5px 8px;
+            box-sizing: border-box;
+            width: calc(100% - 50px);
+            border: none;
+            border-radius: 12px 0 0 12px;
+        }
+        button {
+            outline: none;
+            padding: 0;
+            height: 30px;
+            width: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            background-color: #3d92cb;
+            color: #fff;
+            border-radius: 0 12px 12px 0;
+            cursor: pointer;
+            transition: .5s;
+            &:disabled {
+                background-color: #83bee6;
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Aux from '../../hoc/Aux';
-import fetchApiData from '../../fetchApiData';
+import Comments from '../../components/Comments/Comments';
+import axios from '../../axiosInstance';
 
 import styles from './SinglePost.module.scss';
 
@@ -11,12 +12,14 @@ const SinglePost = (props) => {
     useEffect(() => {
         props.handleLoading( true );
         document.title = "PIPE:CODE";
-        fetchApiData('posts/' + props.match.params.id, response => {
-            if(response.status === "success" && response.data && !response.data.error) {
+        axios.get('posts/' + props.match.params.id).then(response => {
+            if(response.status === 200 && response.data) {
                 document.title = "PIPE:CODE | " + response.data.Title;
                 setPost( response.data );
             }
             props.handleLoading( false );
+        }).catch(error => {
+            console.log(error);
         });
     }, []);
 
@@ -34,6 +37,7 @@ const SinglePost = (props) => {
                     </div>
                     <div className={styles.Body} dangerouslySetInnerHTML={{__html: post.Body}} />
                     <div>[{getFormattedDate(post.createdAt)}]</div>
+                    <Comments postID={post._id} />
                 </Aux>
                 : <div>No se encontro post</div>
             }

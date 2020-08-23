@@ -10,6 +10,7 @@ import Home from './containers/Home/Home';
 import Posts from './containers/Posts/Posts';
 import SinglePost from './containers/SinglePost/SinglePost';
 
+import 'normalize.css';
 import './index.scss';
 
 const Root = () => {
