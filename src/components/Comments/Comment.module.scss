@@ -1,6 +1,10 @@
 .Comment {
     display: table;
-    margin-top: 20px;
+    margin-top: 10px;
+    box-sizing: border-box;
+    padding: 4px 20px 4px 4px;
+    background-color: rgba(0,0,0,0.4);
+    border-radius: 40px;
     .Content {
         display: flex;
         align-items: center;
