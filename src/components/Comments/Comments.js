@@ -4,6 +4,7 @@ import CommentItem from './Comment';
 import { Icon } from '@iconify/react';
 import sendIcon from '@iconify/icons-mdi/send';
 import FormLoader from '../FormLoader/FormLoader';
+import openSocket from 'socket.io-client';
 
 import styles from './Comments.module.scss';
 
@@ -14,9 +15,15 @@ const Comments = (props) => {
     const [comments, setComments] = useState( null );
     const [sending, setSending] = useState( false );
 
+    // const socket = openSocket('http://localhost:1337');
+    const socket = openSocket('https://pipe-code-api.herokuapp.com');
+
     useEffect(() => {
         getComments();
         setFakeIdentityHandler();
+        socket.on("someone_commented", response => {
+            if(response === props.postID) getComments();
+        });
     }, []);
 
     const getComments = () => {
@@ -62,8 +69,7 @@ const Comments = (props) => {
         if(comment != '') {
             setSending( true );
             axios.post('comments', myComment).then(response => {
-                if(response.status === 200) {
-                    getComments();
+                if(response.status === 201) {
                     setComment('');
                     setSending( false );
                 }
