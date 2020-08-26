@@ -94,7 +94,8 @@ $hamburger-layer-spacing: 4px;
 		text-transform: none;
 		color: inherit;
 		border: 0;
-		background-color: transparent;
+        background-color: transparent;
+        margin-right: -10px;
 		@media (min-width: 992px) {
 			display: none;
 		}

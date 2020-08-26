@@ -87,7 +87,7 @@ const Comments = (props) => {
     return (
         <div className={styles.Comments}>
             <h2>Si te gusto o no, dejame tu feedback!</h2>
-            <small>Tu comentario sera completamente anonimo.</small>
+            <small>Tu comentario sera completamente anonimo y me motiva a seguir escribiendo pendejadas útiles.</small>
             { comments ?
                 comments.filter(commentFilter => commentFilter.Post === props.postID).map(item => {
                     return <CommentItem key={item._id} commentData={item} />;

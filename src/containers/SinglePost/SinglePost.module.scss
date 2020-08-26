@@ -3,10 +3,30 @@
     .Body {
         img {
             max-width: 100%;
+            border-radius: 6px;
         }
         p {
             margin: 20px 0;
         }
+        a {
+            color: #3d92cb;
+        }
+        code {
+            font-size: 15px;
+            background-color: rgba(0,0,0,0.4);
+            display: table;
+            box-sizing: border-box;
+            padding: 8px 15px;
+            border-left: 4px solid #3d92cb;
+            border-radius: 0 6px 6px 0;
+            word-break: break-all;
+        }
+        breakit {
+            word-break: break-all;
+        }
+    }
+    .PostDate {
+        margin-top: 40px;
     }
     h1 {
         color: #3d92cb;

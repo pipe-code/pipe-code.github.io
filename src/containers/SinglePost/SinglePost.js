@@ -36,7 +36,7 @@ const SinglePost = (props) => {
                         <h1>{post.Title}</h1>
                     </div>
                     <div className={styles.Body} dangerouslySetInnerHTML={{__html: post.Body}} />
-                    <div>[{getFormattedDate(post.createdAt)}]</div>
+                    <div className={styles.PostDate}>Fecha de publicación: {getFormattedDate(post.createdAt)}</div>
                     <Comments postID={post._id} />
                 </Aux>
                 : <div>No se encontro post</div>
