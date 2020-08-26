@@ -9,11 +9,10 @@ const Posts = (props) => {
     const [posts, setPosts] = useState(null);
     
     useEffect(() => {
-        console.log(process.env);
         document.title = props.title;
         props.handleLoading( true );
         axios.get('posts').then(response => {
-            if(response.status === 200 && response.data.length > 0) setPosts( response.data );
+            if(response.status === 200 && response.data.length > 0) setPosts( response.data.reverse() );
             props.handleLoading( false );
         }).catch(error => {
             console.log(error);
@@ -31,7 +30,7 @@ const Posts = (props) => {
                 posts ?
                     posts.map(item => {
                         return (
-                            <Link to={'/posts/' + item._id} key={item._id} className={styles.Link}>
+                            <Link to={'/posts/' + item.Slug} key={item._id} className={styles.Link}>
                                 <span>[{getFormattedDate(item.createdAt)}]</span> {item.Title}
                             </Link>
                         )

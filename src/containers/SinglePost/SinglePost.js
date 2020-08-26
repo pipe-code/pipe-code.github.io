@@ -12,10 +12,10 @@ const SinglePost = (props) => {
     useEffect(() => {
         props.handleLoading( true );
         document.title = "PIPE:CODE";
-        axios.get('posts/' + props.match.params.id).then(response => {
+        axios.get('posts?Slug=' + props.match.params.slug).then(response => {
             if(response.status === 200 && response.data) {
-                document.title = "PIPE:CODE | " + response.data.Title;
-                setPost( response.data );
+                document.title = "PIPE:CODE | " + response.data[0].Title;
+                setPost( response.data[0] );
             }
             props.handleLoading( false );
         }).catch(error => {

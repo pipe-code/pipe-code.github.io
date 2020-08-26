@@ -27,7 +27,7 @@ const Comments = (props) => {
     }, []);
 
     const getComments = () => {
-        axios.get('comments').then(response => {
+        axios.get('comments?Post='+props.postID).then(response => {
             if(response.status === 200) {
                 setComments(response.data);
             }
@@ -89,7 +89,7 @@ const Comments = (props) => {
             <h2>Si te gusto o no, dejame tu feedback!</h2>
             <small>Tu comentario sera completamente anonimo y me motiva a seguir escribiendo pendejadas útiles.</small>
             { comments ?
-                comments.filter(commentFilter => commentFilter.Post === props.postID).map(item => {
+                comments.map(item => {
                     return <CommentItem key={item._id} commentData={item} />;
                 })
             : null}

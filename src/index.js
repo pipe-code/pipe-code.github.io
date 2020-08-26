@@ -33,7 +33,7 @@ const Root = () => {
               <Posts handleLoading={setLoading} title="PIPE:CODE | POSTS" />
             </Route>
 
-            <Route path="/posts/:id" exact render={
+            <Route path="/posts/:slug" exact render={
               (props) => <SinglePost handleLoading={setLoading} {...props} />
             } />
 
