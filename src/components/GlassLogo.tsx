@@ -1,4 +1,4 @@
-import { useRef, useMemo, useEffect } from 'react'
+import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
@@ -188,8 +188,15 @@ function Scene({ mouseRef }: { mouseRef: React.RefObject<THREE.Vector2> }) {
   )
 }
 
+type DoEWithPermission = typeof DeviceOrientationEvent & {
+  requestPermission?: () => Promise<PermissionState>
+}
+
 export default function GlassLogo() {
-  const mouseRef = useRef(new THREE.Vector2(0, 0))
+  const mouseRef   = useRef(new THREE.Vector2(0, 0))
+  const onGyroRef  = useRef<((e: DeviceOrientationEvent) => void) | null>(null)
+  const [showTap, setShowTap] = useState(false)
+  const [tapFading, setTapFading] = useState(false)
 
   useEffect(() => {
     const isTouch = navigator.maxTouchPoints > 0
@@ -203,52 +210,81 @@ export default function GlassLogo() {
       return () => window.removeEventListener('mousemove', onMove)
     }
 
-    // ── Gyroscope (touch devices) ──────────────────────────────────────
-    // gamma: left-right tilt  (-90 → 90°), 0° = vertical, ±45° → ±1
-    // beta:  front-back tilt  (0 → 180°), 90° = upright neutral
+    // gamma: left-right tilt (-90→90°), beta: front-back (0→180°, 90° = upright)
     const onGyro = (e: DeviceOrientationEvent) => {
       const gamma = e.gamma ?? 0
       const beta  = e.beta  ?? 90
       mouseRef.current.x = Math.max(-1, Math.min(1, gamma / 45))
       mouseRef.current.y = Math.max(-1, Math.min(1, (90 - beta) / 45))
     }
+    onGyroRef.current = onGyro
 
-    type DoEWithPermission = typeof DeviceOrientationEvent & {
-      requestPermission?: () => Promise<PermissionState>
-    }
     const DoE = DeviceOrientationEvent as DoEWithPermission
 
     if (typeof DoE.requestPermission === 'function') {
-      // iOS 13+: permission must come from a user gesture
-      const onTouch = () => {
-        DoE.requestPermission!().then(state => {
-          if (state === 'granted') window.addEventListener('deviceorientation', onGyro)
-        })
-      }
-      window.addEventListener('touchstart', onTouch, { once: true })
-      return () => {
-        window.removeEventListener('touchstart', onTouch)
-        window.removeEventListener('deviceorientation', onGyro)
-      }
+      // iOS 13+: show tap prompt — permission must come from a direct user gesture
+      setShowTap(true)
     } else {
-      // Android and non-permission browsers — no gate needed
+      // Android / browsers without permission gate
       window.addEventListener('deviceorientation', onGyro)
       return () => window.removeEventListener('deviceorientation', onGyro)
     }
   }, [])
 
+  const handleTapPermission = () => {
+    const DoE = DeviceOrientationEvent as DoEWithPermission
+    DoE.requestPermission!().then(state => {
+      if (state === 'granted' && onGyroRef.current) {
+        window.addEventListener('deviceorientation', onGyroRef.current)
+      }
+      // fade out regardless of decision
+      setTapFading(true)
+      setTimeout(() => setShowTap(false), 600)
+    })
+  }
+
   return (
-    <Canvas
-      style={{ position: 'fixed', inset: 0 }}
-      camera={{ position: [0, 0, 12], fov: 45 }}
-      gl={{
-        antialias: true,
-        toneMapping: THREE.ACESFilmicToneMapping,
-        toneMappingExposure: 1.1,
-      }}
-    >
-      <color attach="background" args={['#000000']} />
-      <Scene mouseRef={mouseRef} />
-    </Canvas>
+    <>
+      <Canvas
+        style={{ position: 'fixed', inset: 0 }}
+        camera={{ position: [0, 0, 12], fov: 45 }}
+        gl={{
+          antialias: true,
+          toneMapping: THREE.ACESFilmicToneMapping,
+          toneMappingExposure: 1.1,
+        }}
+      >
+        <color attach="background" args={['#000000']} />
+        <Scene mouseRef={mouseRef} />
+      </Canvas>
+
+      {showTap && (
+        <button
+          onClick={handleTapPermission}
+          style={{
+            position:        'fixed',
+            bottom:          40,
+            left:            '50%',
+            transform:       'translateX(-50%)',
+            background:      'rgba(17,17,27,0.72)',
+            border:          '1px solid #313244',
+            borderRadius:    6,
+            padding:         '7px 18px',
+            fontFamily:      '"JetBrains Mono", monospace',
+            fontSize:        11,
+            color:           '#7f849c',
+            cursor:          'pointer',
+            letterSpacing:   '0.06em',
+            backdropFilter:  'blur(8px)',
+            zIndex:          200,
+            opacity:         tapFading ? 0 : 1,
+            transition:      'opacity 0.6s ease',
+            pointerEvents:   tapFading ? 'none' : 'auto',
+          }}
+        >
+          activar movimiento por giroscopio
+        </button>
+      )}
+    </>
   )
 }
