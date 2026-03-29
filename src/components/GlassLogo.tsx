@@ -121,10 +121,20 @@ function Scene({ mouseRef }: { mouseRef: React.RefObject<THREE.Vector2> }) {
     }
   })
 
+  // Scale down on narrow viewports so the logo always fits — never scale up
+  const logoW = SVG_W * SCALE
+  const logoH = SVG_H * SCALE
+  const fit = Math.min(
+    1,
+    (viewport.width  * 0.88) / logoW,
+    (viewport.height * 0.82) / logoH,
+  )
+  const s = SCALE * fit
+
   // Center SVG coordinate space at world origin
-  const cx = (-SVG_W / 2) * SCALE
-  const cy = (SVG_H / 2) * SCALE
-  const cz = -(EXTRUDE_DEPTH * SCALE) / 2
+  const cx = (-SVG_W / 2) * s
+  const cy = (SVG_H / 2) * s
+  const cz = -(EXTRUDE_DEPTH * s) / 2
 
   return (
     <>
@@ -150,7 +160,7 @@ function Scene({ mouseRef }: { mouseRef: React.RefObject<THREE.Vector2> }) {
       <group
         ref={groupRef}
         position={[cx, cy, cz]}
-        scale={[SCALE, -SCALE, SCALE]}
+        scale={[s, -s, s]}
       >
         {meshes.map(({ geometry, isBlue }, i) => (
           <mesh key={i} geometry={geometry}>
