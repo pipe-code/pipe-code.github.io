@@ -10,5 +10,6 @@
   "copyright_xs":    "© pipe-code",
   "not_found":       "E404: file not found",
   "not_found_go":    "go home",
-  "not_found_hint":  "press ENTER or type command to continue"
+  "not_found_hint":  "press ENTER or type command to continue",
+  "gyro_prompt":     "enable gyroscope motion"
 }

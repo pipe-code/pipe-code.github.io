@@ -1,5 +1,6 @@
 import { useRef, useMemo, useEffect, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { useLang } from '@/context/LanguageContext'
 import { MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 import StackGrid from '@/components/StackGrid'
@@ -193,6 +194,7 @@ type DoEWithPermission = typeof DeviceOrientationEvent & {
 }
 
 export default function GlassLogo() {
+  const { t } = useLang()
   const mouseRef   = useRef(new THREE.Vector2(0, 0))
   const onGyroRef  = useRef<((e: DeviceOrientationEvent) => void) | null>(null)
   const [showTap, setShowTap] = useState(false)
@@ -282,7 +284,7 @@ export default function GlassLogo() {
             pointerEvents:   tapFading ? 'none' : 'auto',
           }}
         >
-          activar movimiento por giroscopio
+          {t('common', 'gyro_prompt')}
         </button>
       )}
     </>
