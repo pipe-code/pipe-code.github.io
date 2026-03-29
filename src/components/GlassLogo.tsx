@@ -2,6 +2,7 @@ import { useRef, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { MeshTransmissionMaterial } from '@react-three/drei'
 import * as THREE from 'three'
+import StackGrid from '@/components/StackGrid'
 import { SVGLoader } from 'three/examples/jsm/loaders/SVGLoader.js'
 import * as BufferGeometryUtils from 'three/examples/jsm/utils/BufferGeometryUtils.js'
 
@@ -152,6 +153,9 @@ function Scene({ mouseRef }: { mouseRef: React.RefObject<THREE.Vector2> }) {
         distance={30}
         decay={2}
       />
+
+      {/* Tech stack logos scattered in deep background */}
+      <StackGrid />
 
       {/* Very dim ambient so crystal silhouette is barely visible in the dark */}
       <ambientLight intensity={0.04} color="#aaccff" />
