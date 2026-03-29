@@ -1,8 +1,11 @@
 {
-  "nav_home":  "inicio",
-  "nav_about": "sobre mí",
-  "lang":      "idioma",
-  "lang_es":   "español",
-  "lang_en":   "english",
-  "social":    "redes"
+  "nav_home":    "inicio",
+  "nav_about":   "sobre mí",
+  "lang":        "idioma",
+  "lang_es":     "español",
+  "lang_en":     "english",
+  "social":      "redes",
+  "copyright":   "© 2026 pipe-code · Todos los derechos reservados",
+  "copyright_s": "© 2026 pipe-code",
+  "copyright_xs":"© pipe-code"
 }

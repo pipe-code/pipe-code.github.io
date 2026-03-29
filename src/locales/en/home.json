@@ -1,6 +1,4 @@
 {
-  "meta": {
-    "title": "pipe-code",
-    "description": "Software development portfolio"
-  }
+  "meta_title":       "pipe-code",
+  "meta_description": "Software development portfolio"
 }

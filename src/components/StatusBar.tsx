@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react'
+import { useLang } from '@/context/LanguageContext'
+
 
 const C = {
   blue:     '#89b4fa',
@@ -37,25 +39,15 @@ function SepLeft({ from, to }: { from: string; to: string }) {
 }
 
 export default function StatusBar() {
-  const [section, setSection] = useState('home')
+  const { route, t } = useLang()
   // SSR-safe: start wide so first render matches desktop, avoids layout shift on hydration
   const [width, setWidth] = useState(1200)
 
   useEffect(() => {
-    const onHash = () => {
-      setSection(window.location.hash.replace('#', '') || 'home')
-    }
     const onResize = () => setWidth(window.innerWidth)
-
-    onHash()
     onResize()
-
-    window.addEventListener('hashchange', onHash)
     window.addEventListener('resize', onResize)
-    return () => {
-      window.removeEventListener('hashchange', onHash)
-      window.removeEventListener('resize', onResize)
-    }
+    return () => window.removeEventListener('resize', onResize)
   }, [])
 
   // Progressive collapse — outside-in, mirroring lualine behavior
@@ -68,9 +60,9 @@ export default function StatusBar() {
   const rightEdge = showY ? C.surface0 : C.base
 
   const copyright =
-    width >= 520 ? '© 2026 pipe-code · All rights reserved' :
-    width >= 380 ? '© 2026 pipe-code' :
-                   '© pipe-code'
+    width >= 520 ? t('common', 'copyright') :
+    width >= 380 ? t('common', 'copyright_s') :
+                   t('common', 'copyright_xs')
 
   const brand = width >= 380 ? 'λ\u00a0\u00a0pipe-code' : 'λ'
 
@@ -135,7 +127,7 @@ export default function StatusBar() {
             display: 'flex', alignItems: 'center',
             padding: '0 13px', whiteSpace: 'nowrap',
           }}>
-            #{section}
+            #{route}
           </div>
         </>}
 

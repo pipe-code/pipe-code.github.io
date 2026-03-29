@@ -135,7 +135,7 @@ function NavLink({ href, label, onClick }: { href: string; label: string; onClic
   return (
     <a
       href={href}
-      onClick={onClick}
+      onClick={(e) => { e.preventDefault(); onClick() }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
@@ -174,7 +174,7 @@ interface Props {
 }
 
 export default function Sidebar({ open, onClose }: Props) {
-  const { lang, setLang, t } = useLang()
+  const { lang, setLang, navigate, href, t } = useLang()
 
   return (
     <>
@@ -226,8 +226,8 @@ export default function Sidebar({ open, onClose }: Props) {
         <div style={{ marginBottom: 32 }}>
           <SectionLabel>nav</SectionLabel>
           <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <NavLink href="#home"  label={t('common', 'nav_home')}  onClick={onClose} />
-            <NavLink href="#about" label={t('common', 'nav_about')} onClick={onClose} />
+            <NavLink href={href('home')}  label={t('common', 'nav_home')}  onClick={() => { navigate('home');  onClose() }} />
+            <NavLink href={href('about')} label={t('common', 'nav_about')} onClick={() => { navigate('about'); onClose() }} />
           </nav>
         </div>
 

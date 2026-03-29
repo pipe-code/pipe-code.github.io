@@ -7,7 +7,8 @@ import enHome   from '@/locales/en/home.json'
 import esAbout  from '@/locales/es/about.json'
 import enAbout  from '@/locales/en/about.json'
 
-export type Lang = 'es' | 'en'
+export type Lang  = 'es' | 'en'
+export type Route = 'home' | 'about'
 
 const translations = {
   es: { common: esCommon, home: esHome, about: esAbout },
@@ -16,30 +17,69 @@ const translations = {
 
 type Namespace = keyof typeof translations['es']
 
+// ─── Hash utilities ───────────────────────────────────────────────────────────
+
+function parseHash(): { lang: Lang; route: Route } {
+  if (typeof window === 'undefined') return { lang: 'es', route: 'home' }
+  const path = window.location.hash.replace(/^#\/?/, '')
+  const segments = path.split('/').filter(Boolean)
+  let lang: Lang = 'es', route: Route = 'home', i = 0
+  if (segments[i] === 'en') { lang = 'en'; i++ }
+  if (segments[i] === 'about') route = 'about'
+  return { lang, route }
+}
+
+export function buildHash(route: Route, lang: Lang): string {
+  const l = lang === 'en' ? 'en/' : ''
+  const r = route !== 'home' ? `${route}/` : ''
+  return `#/${l}${r}`
+}
+
+// ─── Context ──────────────────────────────────────────────────────────────────
+
 interface LanguageContextType {
-  lang: Lang
-  setLang: (l: Lang) => void
-  t: <N extends Namespace>(ns: N, key: keyof typeof translations['es'][N]) => string
+  lang:     Lang
+  route:    Route
+  setLang:  (l: Lang) => void
+  navigate: (r: Route) => void
+  href:     (r: Route) => string
+  t:        <N extends Namespace>(ns: N, key: keyof typeof translations['es'][N]) => string
 }
 
 const LanguageContext = createContext<LanguageContextType>({
-  lang: 'es',
-  setLang: () => {},
-  t: (_ns, key) => String(key),
+  lang:     'es',
+  route:    'home',
+  setLang:  () => {},
+  navigate: () => {},
+  href:     () => '#/',
+  t:        (_ns, key) => String(key),
 })
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('es')
+  const [lang,  setLangState]  = useState<Lang>('es')
+  const [route, setRouteState] = useState<Route>('home')
 
+  // URL is the single source of truth — sync on mount and hash changes
   useEffect(() => {
-    const stored = localStorage.getItem('lang') as Lang | null
-    if (stored === 'es' || stored === 'en') setLangState(stored)
+    const sync = () => {
+      const parsed = parseHash()
+      setLangState(parsed.lang)
+      setRouteState(parsed.route)
+    }
+    sync()
+    window.addEventListener('hashchange', sync)
+    return () => window.removeEventListener('hashchange', sync)
   }, [])
 
   const setLang = (l: Lang) => {
-    setLangState(l)
-    localStorage.setItem('lang', l)
+    window.location.hash = buildHash(route, l)
   }
+
+  const navigate = (r: Route) => {
+    window.location.hash = buildHash(r, lang)
+  }
+
+  const href = (r: Route) => buildHash(r, lang)
 
   const t = <N extends Namespace>(ns: N, key: keyof typeof translations['es'][N]): string => {
     const section = translations[lang][ns] as Record<string, unknown>
@@ -48,7 +88,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t }}>
+    <LanguageContext.Provider value={{ lang, route, setLang, navigate, href, t }}>
       {children}
     </LanguageContext.Provider>
   )

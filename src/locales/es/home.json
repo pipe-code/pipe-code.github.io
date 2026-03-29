@@ -1,6 +1,4 @@
 {
-  "meta": {
-    "title": "pipe-code",
-    "description": "Portafolio de desarrollo de software"
-  }
+  "meta_title":       "pipe-code",
+  "meta_description": "Portafolio de desarrollo de software"
 }

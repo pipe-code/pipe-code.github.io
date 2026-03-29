@@ -299,7 +299,7 @@ const PLACEMENTS: [number, number, number, number][] = [
   [ 14.5, -7.5, -0.20, 1.4],
 ]
 
-const LOGO_OPACITY = 0.065
+const LOGO_OPACITY = 0.08
 
 // ─── Component ────────────────────────────────────────────────────────────────
 

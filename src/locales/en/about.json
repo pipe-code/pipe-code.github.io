@@ -1,8 +1,6 @@
 {
-  "meta": {
-    "title": "about — pipe-code",
-    "description": "About the developer"
-  },
-  "heading": "about",
-  "role": "software developer"
+  "meta_title":       "about — pipe-code",
+  "meta_description": "About the developer",
+  "heading":          "about",
+  "role":             "software developer"
 }
