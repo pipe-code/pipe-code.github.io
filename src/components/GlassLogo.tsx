@@ -192,12 +192,49 @@ export default function GlassLogo() {
   const mouseRef = useRef(new THREE.Vector2(0, 0))
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mouseRef.current.x = (e.clientX / window.innerWidth) * 2 - 1
-      mouseRef.current.y = -((e.clientY / window.innerHeight) * 2 - 1)
+    const isTouch = navigator.maxTouchPoints > 0
+
+    if (!isTouch) {
+      const onMove = (e: MouseEvent) => {
+        mouseRef.current.x =  (e.clientX / window.innerWidth)  * 2 - 1
+        mouseRef.current.y = -((e.clientY / window.innerHeight) * 2 - 1)
+      }
+      window.addEventListener('mousemove', onMove)
+      return () => window.removeEventListener('mousemove', onMove)
     }
-    window.addEventListener('mousemove', onMove)
-    return () => window.removeEventListener('mousemove', onMove)
+
+    // ── Gyroscope (touch devices) ──────────────────────────────────────
+    // gamma: left-right tilt  (-90 → 90°), 0° = vertical, ±45° → ±1
+    // beta:  front-back tilt  (0 → 180°), 90° = upright neutral
+    const onGyro = (e: DeviceOrientationEvent) => {
+      const gamma = e.gamma ?? 0
+      const beta  = e.beta  ?? 90
+      mouseRef.current.x = Math.max(-1, Math.min(1, gamma / 45))
+      mouseRef.current.y = Math.max(-1, Math.min(1, (90 - beta) / 45))
+    }
+
+    type DoEWithPermission = typeof DeviceOrientationEvent & {
+      requestPermission?: () => Promise<PermissionState>
+    }
+    const DoE = DeviceOrientationEvent as DoEWithPermission
+
+    if (typeof DoE.requestPermission === 'function') {
+      // iOS 13+: permission must come from a user gesture
+      const onTouch = () => {
+        DoE.requestPermission!().then(state => {
+          if (state === 'granted') window.addEventListener('deviceorientation', onGyro)
+        })
+      }
+      window.addEventListener('touchstart', onTouch, { once: true })
+      return () => {
+        window.removeEventListener('touchstart', onTouch)
+        window.removeEventListener('deviceorientation', onGyro)
+      }
+    } else {
+      // Android and non-permission browsers — no gate needed
+      window.addEventListener('deviceorientation', onGyro)
+      return () => window.removeEventListener('deviceorientation', onGyro)
+    }
   }, [])
 
   return (
