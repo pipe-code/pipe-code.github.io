@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import { useLang } from '@/context/LanguageContext'
+import NotFoundView from '@/components/NotFoundView'
 
 const GlassLogo = dynamic(() => import('@/components/GlassLogo'), { ssr: false })
 
@@ -22,8 +23,9 @@ export default function IndexPage() {
         <meta name="description" content={pageDesc} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      {route === 'home'  && <GlassLogo />}
-      {route === 'about' && <AboutPage />}
+      {route === 'home'      && <GlassLogo />}
+      {route === 'about'     && <AboutPage />}
+      {route === 'not-found' && <NotFoundView />}
     </>
   )
 }

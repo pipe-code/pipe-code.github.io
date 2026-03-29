@@ -8,7 +8,9 @@ import esAbout  from '@/locales/es/about.json'
 import enAbout  from '@/locales/en/about.json'
 
 export type Lang  = 'es' | 'en'
-export type Route = 'home' | 'about'
+export type Route = 'home' | 'about' | 'not-found'
+
+const KNOWN_ROUTES = new Set(['about'])
 
 const translations = {
   es: { common: esCommon, home: esHome, about: esAbout },
@@ -23,15 +25,20 @@ function parseHash(): { lang: Lang; route: Route } {
   if (typeof window === 'undefined') return { lang: 'es', route: 'home' }
   const path = window.location.hash.replace(/^#\/?/, '')
   const segments = path.split('/').filter(Boolean)
-  let lang: Lang = 'es', route: Route = 'home', i = 0
+  let lang: Lang = 'es', i = 0
   if (segments[i] === 'en') { lang = 'en'; i++ }
-  if (segments[i] === 'about') route = 'about'
+  const seg = segments[i]
+  let route: Route
+  if (!seg) route = 'home'
+  else if (KNOWN_ROUTES.has(seg)) route = seg as Route
+  else route = 'not-found'
   return { lang, route }
 }
 
 export function buildHash(route: Route, lang: Lang): string {
+  const effectiveRoute = route === 'not-found' ? 'home' : route
   const l = lang === 'en' ? 'en/' : ''
-  const r = route !== 'home' ? `${route}/` : ''
+  const r = effectiveRoute !== 'home' ? `${effectiveRoute}/` : ''
   return `#/${l}${r}`
 }
 
